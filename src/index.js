@@ -52,12 +52,58 @@ const winCombinations = [
   [4, 8, 12, 16, 20]
 ];
 
-function resetButton() {
-  alert("Game will reset and you can play again");
-  console.log("Initializing");
-  const button = document.getElementById("resetgame");
-  button.addEventListener("mousedown", (event) => {
-    resetButton();
-    event.stopPropagation();
-  });
+function cellPlayed(clickedCell, clickedCellNumber) {
+  gameBoard[clickedCellNumber] = currentTurn;
+  clickedCell.innerHTML = currentTurn;
 }
+
+function cellClick(clickedCellEvent) {
+  const clickedCell = clickedCellEvent.target;
+  const clickedCellNumber = parseInt(clickedCell.getAttribute("cellnumber"));
+
+  if (gameBoard[clickedCellNumber] !== "" || !gameActive) {
+    return;
+  }
+  cellPlayed(clickedCell, clickedCellNumber);
+}
+
+document
+  .querySelectorAll(".cell")
+  .forEach((cell) => cell.addEventListener("click", cellClick));
+
+function resetButton() {
+  gameActive = true;
+  currentTurn = "X";
+  gameBoard = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ];
+  showStatus.innerHTML = currentPlayerTurn();
+  document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
+  alert("Game will reset and you can play again");
+}
+
+document.querySelector(".resetgame").addEventListener("click", resetButton);
