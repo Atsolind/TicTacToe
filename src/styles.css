@@ -8,8 +8,9 @@ section {
 
 .tabledata {
   display: grid;
+  border: 1px solid;
   grid-template-columns: repeat(5, auto);
-  width: 306px;
+  width: 508px;
   margin: 50px auto;
 }
 
