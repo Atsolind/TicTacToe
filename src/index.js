@@ -1,6 +1,6 @@
 import "./styles.css";
 
-const showStatus = document.querySelector(".gamestatus");
+//const showStatus = document.querySelector(".gamestatus");
 
 let gameBoard = [
   "",
@@ -35,7 +35,7 @@ let gameActive = true;
 const winningMessage = () => `Player ${currentTurn} won!`;
 const currentPlayerTurn = () => `It's player ${currentTurn}'s turn`;
 
-showStatus.innerHTML = currentPlayerTurn();
+//showStatus.innerHTML = currentPlayerTurn();
 
 const winCombinations = [
   [0, 1, 2, 3, 4],
@@ -74,7 +74,7 @@ document
 
 function changePlayer() {
   currentTurn = currentTurn === "X" ? "O" : "X";
-  showStatus.innerHTML = currentPlayerTurn();
+  //showStatus.innerHTML = currentPlayerTurn();
 }
 
 function checkWinner() {
@@ -102,7 +102,7 @@ function checkWinner() {
     if (currentTurn === "O") {
       alert("Player 2 won!");
     }
-    showStatus.innerHTML = winningMessage();
+    //showStatus.innerHTML = winningMessage();
     gameActive = false;
     return;
   }
@@ -139,7 +139,7 @@ function resetButton() {
     "",
     ""
   ];
-  showStatus.innerHTML = currentPlayerTurn();
+  //showStatus.innerHTML = currentPlayerTurn();
   document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
   alert("Game will reset and you can play again");
 }
