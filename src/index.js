@@ -56,22 +56,6 @@ function cellPlayed(clickedCell, clickedCellNumber) {
   gameBoard[clickedCellNumber] = currentTurn;
   clickedCell.innerHTML = currentTurn;
 }
-
-function cellClick(clickedCellEvent) {
-  const clickedCell = clickedCellEvent.target;
-  const clickedCellNumber = parseInt(clickedCell.getAttribute("cellnumber"));
-
-  if (gameBoard[clickedCellNumber] !== "" || !gameActive) {
-    return;
-  }
-  cellPlayed(clickedCell, clickedCellNumber);
-  checkWinner();
-}
-
-document
-  .querySelectorAll(".cell")
-  .forEach((cell) => cell.addEventListener("click", cellClick));
-
 function changePlayer() {
   currentTurn = currentTurn === "X" ? "O" : "X";
   //showStatus.innerHTML = currentPlayerTurn();
@@ -109,6 +93,17 @@ function checkWinner() {
   changePlayer();
 }
 
+function cellClick(clickedCellEvent) {
+  const clickedCell = clickedCellEvent.target;
+  const clickedCellNumber = parseInt(clickedCell.getAttribute("cellnumber"));
+
+  if (gameBoard[clickedCellNumber] !== "" || !gameActive) {
+    return;
+  }
+  cellPlayed(clickedCell, clickedCellNumber);
+  checkWinner();
+}
+
 function resetButton() {
   gameActive = true;
   currentTurn = "X";
@@ -144,4 +139,7 @@ function resetButton() {
   alert("Game will reset and you can play again");
 }
 
-document.querySelector(".resetgame").addEventListener("click", resetButton);
+//document.querySelector(".resetgame").addEventListener("click", resetButton);
+document
+  .querySelectorAll(".cell")
+  .forEach((cell) => cell.addEventListener("click", cellClick));
