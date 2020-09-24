@@ -29,7 +29,7 @@ let gameBoard = [
   "",
   ""
 ];
-let currentTurn = "1";
+let currentTurn = "X";
 let gameActive = true;
 
 const winningMessage = () => `Player ${currentTurn} won!`;
@@ -65,11 +65,49 @@ function cellClick(clickedCellEvent) {
     return;
   }
   cellPlayed(clickedCell, clickedCellNumber);
+  checkWinner();
 }
 
 document
   .querySelectorAll(".cell")
   .forEach((cell) => cell.addEventListener("click", cellClick));
+
+function changePlayer() {
+  currentTurn = currentTurn === "X" ? "O" : "X";
+  showStatus.innerHTML = currentPlayerTurn();
+}
+
+function checkWinner() {
+  let roundWin = false;
+  for (let i = 0; i <= 11; i++) {
+    const winCombination = winCombinations[i];
+    let a = gameBoard[winCombination[0]];
+    let b = gameBoard[winCombination[1]];
+    let c = gameBoard[winCombination[2]];
+    let d = gameBoard[winCombination[3]];
+    let e = gameBoard[winCombination[4]];
+    if (a === "" || b === "" || c === "" || d === "" || e === "") {
+      continue;
+    }
+
+    if (a === b && b === c && c === d && d === e) {
+      roundWin = true;
+      break;
+    }
+  }
+  if (roundWin) {
+    if (currentTurn === "X") {
+      alert("Player 1 won!");
+    }
+    if (currentTurn === "O") {
+      alert("Player 2 won!");
+    }
+    showStatus.innerHTML = winningMessage();
+    gameActive = false;
+    return;
+  }
+  changePlayer();
+}
 
 function resetButton() {
   gameActive = true;
